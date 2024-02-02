@@ -8,6 +8,9 @@ switch ($_GET['table']) {
     case 'mvim':
         echo "<h3>更新動畫圖片</h3>";
         break;
+    case 'image':
+        echo "<h3>更換校園映像圖片</h3>";
+        break;
 }
 ?>
     
@@ -24,6 +27,9 @@ switch ($_GET['table']) {
                             
                             case 'mvim':
                                 echo "<h3>動畫圖片:</h3>";
+                                break;
+                            case 'image':
+                                echo "<h3>校園映像圖片:</h3>";
                                 break;
                         }
                     ?>
