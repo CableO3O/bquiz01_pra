@@ -19,7 +19,7 @@
                         </td>
                             <input type="hidden" name="id[]" value="<?= $mvim['id']; ?>">
                         <td width="7%">
-                            <input type="radio" name="sh[]" value="<?= $mvim['id']; ?>" <?= ($mvim['sh'] == 1) ? 'checked' : ''; ?>>
+                            <input type="checkbox" name="sh[]" value="<?= $mvim['id']; ?>" <?= ($mvim['sh'] == 1) ? 'checked' : ''; ?>>
                         </td>
                         <td width="7%">
                             <input type="checkbox" name="del[]" value="<?= $mvim['id']; ?>">
