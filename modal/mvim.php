@@ -1,18 +1,12 @@
 <div class="container" style="text-align: center;">
-    <h3>新增標題照片</h3>
+    <h3>新增動畫圖片</h3>
     <hr>
     <form action="./api/add.php" method="post" enctype="multipart/form-data">
         <table>
             <tr>
-                <td>標題區圖片:</td>
+                <td>動畫圖片:</td>
                 <td>
                     <input type="file" name="img">
-                </td>
-            </tr>
-            <tr>
-                <td>標題區替代文字:</td>
-                <td>
-                    <input style="width: 254px;" type="text" name="text">
                 </td>
             </tr>
         </table>
