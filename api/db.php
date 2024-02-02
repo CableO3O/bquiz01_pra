@@ -105,3 +105,4 @@ function to($url){
 }
 
 $Title=new DB('title');
+$Ad=new DB('ad');
