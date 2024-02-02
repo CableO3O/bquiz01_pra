@@ -108,3 +108,9 @@ $Title=new DB('title');
 $Ad=new DB('ad');
 $Mvim=new DB('mvim');
 $Image=new DB('image');
+$Total=new DB('total');
+
+if (!isset($_SESSION['visited'])) {
+    $Total->q("update `total` set `total`=`total`+1 where `id`=1");
+    $_SESSION['visited']=1;
+}
