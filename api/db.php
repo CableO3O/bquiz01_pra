@@ -111,6 +111,7 @@ $Image=new DB('image');
 $Total=new DB('total');
 $Bottom=new DB('bottom');
 $News=new DB('news');
+$Admin=new DB('admins');
 
 if (!isset($_SESSION['visited'])) {
     $Total->q("update `total` set `total`=`total`+1 where `id`=1");

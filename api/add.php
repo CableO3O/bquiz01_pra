@@ -7,6 +7,11 @@ if (isset($_FILES['img']['tmp_name'])) {
     move_uploaded_file($_FILES['img']['tmp_name'],"../img/".$_FILES['img']['name']);
     $_POST['img']=$_FILES['img']['name'];
 }
-$_POST['sh']=1;
+if (isset($_POST['pw2'])) {
+    unset($_POST['pw2']);
+}
+if ($table!='admin') {
+    $_POST['sh']=1;
+}
 $DB->save($_POST);
 to("../back.php?do=$table");
