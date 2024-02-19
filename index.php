@@ -8,6 +8,7 @@
 
 	<title>卓越科技大學校園資訊系統</title>
 	<link href="./css/css.css" rel="stylesheet" type="text/css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 	<script src="./js/jquery-1.9.1.min.js"></script>
 	<script src="./js/js.js"></script>
 </head>
@@ -19,69 +20,116 @@
 			<div id="cvr" style="position:absolute; width:99%; height:100%; margin:auto; z-index:9898;"></div>
 		</div>
 	</div>
-	<iframe style="display:none;" name="back" id="back"></iframe>
 	<div id="main">
-	<?php
-		$title=$Title->find(['sh'=>1]);
+		<?php
+		$title = $Title->find(['sh' => 1]);
 		?>
-		<a title="<?=$title['text'];?>" href="index.php">
-			<div class="ti" style="background:url(&#39;./img/<?=$title['img'];?>&#39;);"></div><!--標題-->
+		<a title="<?= $title['text']; ?>" href="index.php">
+			<div class="ti" style="background:url(&#39;./img/<?= $title['img']; ?>&#39;); text-align:center; background-size:cover;">
+			</div><!--標題-->
 		</a>
 		<div id="ms">
 			<div id="lf" style="float:left;">
 				<div id="menuput" class="dbor">
 					<!--主選單放此-->
 					<span class="t botli">主選單區</span>
+					<?php
+					$mainmu = $Menu->all(['sh' => 1, 'menu_id' => 0]);
+					foreach ($mainmu as $main) {
+					?>
+						<div class='mainmu'>
+							<a href="<?= $main['href']; ?>" style="color:#000; font-size:13px; text-decoration:none;"><?= $main['text']; ?></a>
+							<?php
+
+							if ($Menu->count(['menu_id' => $main['id']]) > 0) {
+								echo "<div class='mw'>";
+								$subs = $Menu->all(['menu_id' => $main['id']]);
+								foreach ($subs as $sub) {
+									echo "<a href='{$sub['href']}'>";
+									echo "<div class='mainmu2'>";
+									echo $sub['text'];
+									echo "</div>";
+									echo "</a>";
+								}
+								echo "</div>";
+							}
+							?>
+
+						</div>
+
+						</a>
+					<?php
+					}
+					?>
 				</div>
 				<div class="dbor" style="margin:3px; width:95%; height:20%; line-height:100px;">
-					<span class="t">進站總人數 :
-					<?=$Total->find(1)['total'];?> </span>
+					<span class="t">進站總人數 :<?= $Total->find(1)['total']; ?></span>
 				</div>
 			</div>
-			<div class="di" style="height:540px; border:#999 1px solid; width:53.2%; margin:2px 0px 0px 0px; float:left; position:relative; left:20px;">
-				<marquee scrolldelay="120" direction="left" style="position:absolute; width:100%; height:40px;">
-				</marquee>
-				<?php
-					$do=$_GET['do']??'main';
-					$file="./front/{$do}.php";
-					if (file_exists($file)) {
-						include "$file";
-					}else{
-						include "./front/main.php";
-					}
-				?>
-			</div>
+			<?php
+			$do = $_GET['do'] ?? 'main';
+			$file = "./front/{$do}.php";
+			if (file_exists($file)) {
+				include $file;
+			} else {
+				include "./front/main.php";
+			}
+
+			// switch ($do) {
+
+			// 	case 'login':
+			// 		include "./front/login.php";
+			// 		break;
+			// 	case 'news':
+			// 		include "./front/news.php";
+			// 		break;
+			// 	default:
+			// 		include "./front/main.php";
+			// 		break;
+			// }
+
+			?>
+
 			<div id="alt" style="position: absolute; width: 350px; min-height: 100px; word-break:break-all; text-align:justify;  background-color: rgb(255, 255, 204); top: 50px; left: 400px; z-index: 99; display: none; padding: 5px; border: 3px double rgb(255, 153, 0); background-position: initial initial; background-repeat: initial initial;"></div>
-			<script>
-				$(".sswww").hover(
-					function() {
-						$("#alt").html("" + $(this).children(".all").html() + "").css({
-							"top": $(this).offset().top - 50
-						})
-						$("#alt").show()
-					}
-				)
-				$(".sswww").mouseout(
-					function() {
-						$("#alt").hide()
-					}
-				)
-			</script>
+
 			<div class="di di ad" style="height:540px; width:23%; padding:0px; margin-left:22px; float:left; ">
 				<!--右邊-->
-				<button style="width:100%; margin-left:auto; margin-right:auto; margin-top:2px; height:50px;" onclick="location.href='?do=login'">管理登入</button>
+				<?php
+				if (isset($_SESSION['login'])) {
+				?>
+					<button style="width:100%; margin-left:auto; margin-right:auto; margin-top:2px; height:50px;" onclick="lo(&#39;back.php&#39;)">返回管理</button>
+				<?php
+				} else {
+				?>
+					<button style="width:100%; margin-left:auto; margin-right:auto; margin-top:2px; height:50px;" onclick="lo(&#39;?do=login&#39;)">管理登入</button>
+				<?php
+				}
+				?>
 				<div style="width:89%; height:480px;" class="dbor">
 					<span class="t botli">校園映象區</span>
+					<div class="cent" onclick="pp(1)"><img src="./img/01E01.jpg" alt=""></div>
+					<?php
+					$imgs = $Image->all(['sh' => 1]);
+
+					foreach ($imgs as $idx => $img) {
+					?>
+						<div id="ssaa<?= $idx; ?>" class="im cent">
+							<img src="./img/<?= $img['img']; ?>" style="width: 150px;height:103px;border:3px solid black;margin:3px">
+						</div>
+					<?php
+					}
+					?>
+					<div class="cent" onclick="pp(2)"><img src="./img/01E02.jpg" alt=""></div>
 					<script>
-						var nowpage = 0,
-							num = 0;
+						var nowpage = 1,
+							num = <?= $Image->count(['sh' => 1]); ?>;
 
 						function pp(x) {
 							var s, t;
-							if (x == 1 && nowpage - 1 >= 0) {
+							if (x == 1 && (nowpage - 1) >= 0) {
 								nowpage--;
 							}
-							if (x == 2 && (nowpage + 1) * 3 <= num * 1 + 3) {
+							if (x == 2 && (nowpage + 1) <= num * 1 - 3) {
 								nowpage++;
 							}
 							$(".im").hide()
@@ -97,10 +145,12 @@
 		</div>
 		<div style="clear:both;"></div>
 		<div style="width:1024px; left:0px; position:relative; background:#FC3; margin-top:4px; height:123px; display:block;">
-			<span class="t" style="line-height:123px;"><?=$Bottom->find(1)['bottom'];?></span>
+			<span class="t" style="line-height:123px;"><?= $Bottom->find(1)['bottom']; ?></span>
 		</div>
 	</div>
 
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 </body>
 
 </html>
