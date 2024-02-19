@@ -112,6 +112,7 @@ $Total=new DB('total');
 $Bottom=new DB('bottom');
 $News=new DB('news');
 $Admin=new DB('admins');
+$Menu=new DB('menu');
 
 if (!isset($_SESSION['visited'])) {
     $Total->q("update `total` set `total`=`total`+1 where `id`=1");
