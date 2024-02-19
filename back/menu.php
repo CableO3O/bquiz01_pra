@@ -12,7 +12,7 @@
                     <td></td>
                 </tr>
                 <?php
-                $menus = $Menu->all();
+                $menus = $Menu->all(['menu_id'=>0]);
                 foreach ($menus as $menu) {
                 ?>
                     <tr>
@@ -27,7 +27,7 @@
                             <?=$Menu->count(['menu_id'=>$menu['id']]);?>
                         </td>
                         <td width="7%">
-                            <input type="radio" name="sh" value="<?= $menu['id']; ?>" <?= ($menu['sh'] == 1) ? 'checked' : ''; ?>>
+                            <input type="checkbox" name="sh" value="<?= $menu['id']; ?>" <?= ($menu['sh'] == 1) ? 'checked' : ''; ?>>
                         </td>
                         <td width="7%">
                             <input type="checkbox" name="del[]" value="<?= $menu['id']; ?>">
