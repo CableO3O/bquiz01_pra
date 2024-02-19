@@ -11,7 +11,7 @@ if (isset($_POST['pw2'])) {
     unset($_POST['pw2']);
 }
 if ($table!='admin') {
-    $_POST['sh']=1;
+    $_POST['sh']=($table=='title')?0:1;
 }
 $DB->save($_POST);
 to("../back.php?do=$table");

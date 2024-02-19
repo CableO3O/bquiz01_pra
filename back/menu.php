@@ -21,19 +21,19 @@
                         </td>
                         <td width="34%">
                             <input type="text" name="href[]" value="<?= $menu['href']; ?>">
-                            <input type="hidden" name="id[]" value="<?= $title['id']; ?>">
+                            <input type="hidden" name="id[]" value="<?= $menu['id']; ?>">
                         </td>
                         <td width="7%">
-                            <input type="radio" name="sh" value="<?= $title['id']; ?>" <?= ($title['sh'] == 1) ? 'checked' : ''; ?>>
+                            <?=$Menu->count(['menu_id'=>$menu['id']]);?>
                         </td>
                         <td width="7%">
-                            <input type="radio" name="sh" value="<?= $title['id']; ?>" <?= ($title['sh'] == 1) ? 'checked' : ''; ?>>
+                            <input type="radio" name="sh" value="<?= $menu['id']; ?>" <?= ($menu['sh'] == 1) ? 'checked' : ''; ?>>
                         </td>
                         <td width="7%">
-                            <input type="checkbox" name="del[]" value="<?= $title['id']; ?>">
+                            <input type="checkbox" name="del[]" value="<?= $menu['id']; ?>">
                         </td>
                         <td>
-                            <input type="button" onclick="op('#cover','#cvr','./modal/upload.php?id=<?= $title['id']; ?>&&table=<?=$do;?>')" value="更新圖片">
+                            <input type="button" onclick="op('#cover','#cvr','./modal/submenu.php?id=<?= $menu['id']; ?>&&table=<?=$do;?>')" value="編輯次選單">
                         </td>
                     </tr>
                 <?php
@@ -45,7 +45,7 @@
             <tbody>
                 <tr>
                     <input type="hidden" name="table" value="<?=$do;?>">
-                    <td width="200px"><input type="button" onclick="op('#cover','#cvr','./modal/<?= $do; ?>.php?table=<?= $do; ?>')" value="新增網站標題圖片"></td>
+                    <td width="200px"><input type="button" onclick="op('#cover','#cvr','./modal/<?= $do; ?>.php?table=<?= $do; ?>')" value="新增主選單"></td>
                     <td class="cent"><input type="submit" value="修改確定"><input type="reset" value="重置"></td>
                 </tr>
             </tbody>
